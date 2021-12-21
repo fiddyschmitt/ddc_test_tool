@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "ddc_test_tool": {
+      "commandName": "Project"
+    }
+  }
+}
