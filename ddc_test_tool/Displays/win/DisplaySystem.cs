@@ -24,26 +24,28 @@ namespace SimpleKVM.Displays.win
                                 {
                                     var caps = physicalMonitor.GetVCPCapabilities();
 
+                                    var model = "Unknown";
+                                    var sources = new uint[0];
                                     if (caps != null)
                                     {
-                                        var model = modelRegex.Match(caps).Groups[1].Value;
+                                        model = modelRegex.Match(caps).Groups[1].Value;
 
-                                        var sources = sourcesRegex.Match(caps).Groups[1].Value.Split(' ')
+                                        sources = sourcesRegex.Match(caps).Groups[1].Value.Split(' ')
                                                         .Where(x => !string.IsNullOrWhiteSpace(x))
                                                         .Select(x => Convert.ToUInt32(x, 16))
                                                         .ToArray();
-
-                                        physicalMonitor.GetVCPRegister(0x60, out uint currentSource);
-
-                                        var newMonitor = new Monitor()
-                                        {
-                                            MonitorUniqueId = $"{++monitorId}",
-                                            Model = model,
-                                            ValidSources = sources.Cast<int>().ToList()
-                                        };
-
-                                        cachedMonitorList.Add(newMonitor);
                                     }
+
+                                    physicalMonitor.GetVCPRegister(0x60, out uint currentSource);
+
+                                    var newMonitor = new Monitor()
+                                    {
+                                        MonitorUniqueId = $"{++monitorId}",
+                                        Model = model,
+                                        ValidSources = sources.Cast<int>().ToList()
+                                    };
+
+                                    cachedMonitorList.Add(newMonitor);
                                 });
                 });
             }

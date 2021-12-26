@@ -4,7 +4,7 @@ using SimpleKVM.Displays.win;
 using ddc_test_tool;
 
 const string PROGRAM_NAME = "ddc_test_tool";
-const string PROGRAM_VERSION = "1.0";
+const string PROGRAM_VERSION = "1.1";
 
 PrintProgramVersion();
 
